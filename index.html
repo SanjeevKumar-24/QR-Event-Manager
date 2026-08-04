@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Attendance System</title>
+    <!-- Importing the QR Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #reader {
+            width: 500px;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        .result-box {
+            padding: 20px;
+            background-color: #f0f8ff;
+            border: 1px solid #cce7ff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Attendance Scanner</h1>
+    
+    <!-- This div is where the camera feed will appear -->
+    <div id="reader"></div>
+    
+    <div class="result-box">
+        <h3>Last Scanned Student:</h3>
+        <p id="result">No QR code scanned yet.</p>
+    </div>
+
+    <script>
+        // This function runs when a QR code is successfully scanned
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById('result').innerText = decodedText;
+            
+            // Note: In the future, this is where you would write the code 
+            // to send the 'decodedText' to your database using an API.
+        }
+
+        function onScanFailure(error) {
+            // handle scan failure, usually better to ignore and keep scanning
+        }
+
+        // Initialize the scanner
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { fps: 10, qrbox: {width: 250, height: 250} },
+            /* verbose= */ false
+        );
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
+
+</body>
+</html>
