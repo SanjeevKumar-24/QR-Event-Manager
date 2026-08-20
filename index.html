@@ -3,63 +3,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Attendance System</title>
-    <!-- Importing the QR Scanner Library -->
+    <title>Navrang Garba Night 2026 | ASR Media</title>
+    
+    <!-- Premium Gala Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: Arial, sans-serif;
+            background-color: #0b1120; 
+            color: #fff;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
         }
-        #reader {
-            width: 500px;
-            max-width: 100%;
-            margin-bottom: 20px;
+
+        /* --- FESTIVE FIRECRACKER EFFECT --- */
+        #spark-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
         }
-        .result-box {
-            padding: 20px;
-            background-color: #f0f8ff;
-            border: 1px solid #cce7ff;
-            border-radius: 8px;
+        .spark {
+            position: absolute;
+            width: 5px; height: 5px; 
+            background: #fce7a1;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #d4af37, 0 0 20px #fce7a1; 
+            animation: explode 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
+        @keyframes explode {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        /* --- TOP NAVIGATION BAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 75px;
+            background: rgba(11, 17, 32, 0.85);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 6%; z-index: 100;
+        }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #fff; letter-spacing: 3px;}
+        .nav-logo span { color: #d4af37; }
+        
+        .admin-trigger {
+            background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #d4af37; padding: 10px 24px; border-radius: 30px;
+            font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .admin-trigger:hover { background: rgba(212, 175, 55, 0.2); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); }
+
+        /* --- HERO POSTER SECTION --- */
+        .gala-hero {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 100px 20px 40px; z-index: 10;
+        }
+        .script-text { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: #d4af37; margin-bottom: 5px; }
+        .sub-heading { font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; color: #f3e5ab; }
+        .main-title { 
+            font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 7vw, 6rem); 
+            font-weight: 700; text-transform: uppercase; line-height: 1.05; margin: 15px 0 30px; 
+            color: #fce7a1; text-shadow: 0 4px 25px rgba(212, 175, 55, 0.3);
+        }
+        .date-text { font-size: 1.2rem; letter-spacing: 5px; margin-bottom: 20px; text-transform: uppercase; font-weight: 600; color: #fff; }
+        .venue-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; margin-bottom: 30px; color: #d4af37; }
+        .highlights-text { font-size: 1rem; max-width: 650px; line-height: 1.8; color: #cbd5e1; margin-bottom: 40px; font-weight: 300;}
+
+        /* Updated arrow anchor to jump to registration */
+        .scroll-indicator a { animation: bounce 2s infinite; color: #d4af37; font-size: 0.85rem; text-align: center; letter-spacing: 2px; text-transform: uppercase; margin-top: auto; text-decoration: none; display: flex; flex-direction: column; align-items: center;}
+        .scroll-indicator svg { width: 24px; height: 24px; display: block; margin-top: 5px; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
+
+        /* --- REGISTRATION & GALLERY SECTION --- */
+        main { display: flex; flex-direction: column; align-items: center; padding: 80px 20px; z-index: 10; width: 100%;}
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(212, 175, 55, 0.5); border-left: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 24px; padding: 50px 40px; width: 100%; max-width: 480px; text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); transform-style: preserve-3d;
+        }
+        .glass-card h1, .glass-card p, .glass-card button, .glass-card .qr-container, .glass-card #reader, .glass-card .status-box { transform: translateZ(30px); }
+
+        .card-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 8px; color: #fce7a1; }
+        p.desc { color: #cbd5e1; font-size: 0.95rem; margin-bottom: 35px; line-height: 1.5; }
+
+        .google-btn {
+            background-color: #fff; color: #0b1120; border: none; padding: 15px 20px;
+            border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; width: 100%; 
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            transition: all 0.3s ease; box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .google-btn:hover { background-color: #f1f5f9; transform: translateY(-3px) translateZ(30px); box-shadow: 0 12px 25px rgba(212, 175, 55, 0.2); }
+        .google-icon { width: 22px; height: 22px; }
+
+        #ticket-section { display: none; }
+        .qr-container { background: #fff; padding: 20px; border-radius: 16px; display: inline-block; margin: 20px 0; }
+        .ticket-info { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); padding: 15px; border-radius: 10px; color: #d4af37; font-weight: 600; }
+
+        /* Image Gallery */
+        .gallery-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; margin-top: 60px; width: 100%; max-width: 1000px; z-index: 10; }
+        .gallery-img { width: 300px; height: 200px; object-fit: cover; border-radius: 16px; border: 2px solid rgba(212, 175, 55, 0.3); box-shadow: 0 15px 30px rgba(0,0,0,0.5); transition: all 0.4s ease; cursor: pointer; }
+        .gallery-img:hover { transform: scale(1.05) translateY(-10px); border-color: #fce7a1; box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2); }
+
+        /* --- ADMIN SCANNER UI --- */
+        #admin-container { display: none; animation: fadeIn 0.5s ease; max-width: 500px; margin-top: 50px;}
+        #reader { width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4) !important; background: rgba(0,0,0,0.4); margin-bottom: 25px; padding: 15px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
+        #reader * { font-family: 'Montserrat', sans-serif !important; }
+        #reader select { background: #0b1120 !important; color: #d4af37 !important; border: 1px solid #d4af37 !important; padding: 10px !important; border-radius: 8px !important; outline: none; margin-bottom: 15px !important; width: 90%; font-size: 0.9rem; }
+        #reader button { background: linear-gradient(135deg, #d4af37, #fce7a1) !important; color: #0b1120 !important; border: none !important; padding: 12px 24px !important; border-radius: 8px !important; font-weight: 700 !important; cursor: pointer !important; margin-bottom: 15px !important; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s !important; }
+        #reader button:hover { box-shadow: 0 0 15px rgba(212,175,55,0.4) !important; }
+        #reader span { color: #cbd5e1 !important; font-size: 0.9rem !important; }
+        #reader a { color: #d4af37 !important; text-decoration: none !important; font-size: 0.85rem !important; transition: 0.3s; }
+        #reader a:hover { color: #fce7a1 !important; text-shadow: 0 0 8px rgba(212,175,55,0.5) !important; }
+        #reader video { border-radius: 12px !important; border: 1px solid rgba(212, 175, 55, 0.3) !important; margin-top: 10px !important; }
+
+        .status-box { padding: 20px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; min-height: 100px; transition: all 0.3s ease; }
+        .standby { background: rgba(255, 255, 255, 0.05); border: 1px dashed rgba(255,255,255,0.2); color: #94a3b8; }
+        .success { background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #10b981; }
+        .error { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #ef4444; }
+        .processing { background: rgba(234, 179, 8, 0.15); border: 1px solid #eab308; color: #eab308; }
+        .status-title { font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; }
+        .guest-name { font-size: 1.6rem; color: #fff; margin-top: 5px; }
+        .exit-btn { background: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 10px 24px; border-radius: 8px; margin-top: 20px; cursor: pointer; transition: 0.3s; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+        .exit-btn:hover { background: #ef4444; color: #fff; }
+
+        /* --- ABOUT FESTIVAL SECTION (Moved to Bottom) --- */
+        .about-section {
+            background: rgba(11, 17, 32, 0.85); backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 80px 10%; z-index: 10; position: relative;
+        }
+        .about-header { text-align: center; margin-bottom: 50px; }
+        .about-header h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #fce7a1; margin-bottom: 15px; }
+        .about-header p { color: #cbd5e1; max-width: 700px; margin: 0 auto; line-height: 1.6; font-size: 1.05rem; }
+
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .about-card {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 30px; border-radius: 16px; transition: transform 0.3s ease;
+        }
+        .about-card:hover { transform: translateY(-5px); border-color: rgba(212, 175, 55, 0.6); background: rgba(212, 175, 55, 0.05); }
+        .about-card h3 { color: #d4af37; font-size: 1.2rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .about-card p, .about-card ul { color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; }
+        .about-card ul { padding-left: 20px; margin-top: 10px; }
+        .about-card li { margin-bottom: 8px; }
+
+        /* --- UPGRADED DEVELOPER FOOTER --- */
+        footer {
+            margin-top: auto; width: 100%; background: rgba(11, 17, 32, 0.98);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 40px 20px; text-align: center; color: #cbd5e1; font-size: 0.95rem; z-index: 100;
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
+        }
+        footer span { color: #d4af37; font-weight: 600; }
+        .made-with-love { color: #fce7a1; font-family: 'Great Vibes', cursive; font-size: 1.8rem; letter-spacing: 2px;}
+        
+        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
+        .social-links a { 
+            color: #d4af37; text-decoration: none; font-weight: 600; font-size: 0.85rem; 
+            text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(212, 175, 55, 0.4); 
+            padding: 10px 24px; border-radius: 30px; transition: 0.3s;
+        }
+        .social-links a:hover { 
+            background: rgba(212, 175, 55, 0.15); color: #fff; 
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); transform: translateY(-3px);
+        }
+
+        /* --- ADMIN LOGIN MODAL --- */
+        #admin-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; justify-content: center; align-items: center; }
+        .modal-content { background: #0b1120; border: 1px solid #d4af37; padding: 35px 30px; border-radius: 16px; text-align: center; width: 90%; max-width: 340px; box-shadow: 0 10px 30px rgba(212,175,55,0.2);}
+        .modal-content input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #334155; background: rgba(255,255,255,0.05); color: #fff; font-family: 'Montserrat', sans-serif;}
+        .modal-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #d4af37, #fce7a1); color: #0b1120; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-bottom: 15px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
+        .modal-btn:hover { box-shadow: 0 0 15px rgba(212,175,55,0.4); }
+        .modal-cancel { background: transparent; color: #94a3b8; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;}
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <h1>Student Attendance Scanner</h1>
-    
-    <!-- This div is where the camera feed will appear -->
-    <div id="reader"></div>
-    
-    <div class="result-box">
-        <h3>Last Scanned Student:</h3>
-        <p id="result">No QR code scanned yet.</p>
+    <!-- Festive Firecracker Canvas -->
+    <div id="spark-container"></div>
+
+    <!-- Top Navigation Bar -->
+    <nav>
+        <div class="nav-logo">ASR<span>MEDIA</span></div>
+        <button class="admin-trigger" onclick="showAdminModal()">Admin Portal</button>
+    </nav>
+
+    <!-- POSTER HERO SECTION -->
+    <div class="gala-hero" id="hero">
+        <p class="script-text">Organised by</p>
+        <p class="sub-heading">ASR Media</p>
+        <h1 class="main-title">Navrang<br>Garba Night<br>2026</h1>
+        <p class="date-text">October 19, 2026</p>
+        <p class="venue-text">Miller's High School Ground, Patna</p>
+        <p class="highlights-text">
+            Large open-air dance floor • Celebrity & Artist performances<br>
+            Secret lineup • Grand festive setup
+        </p>
+        <div class="scroll-indicator">
+            <a href="#registration-main">
+                Scroll to Register
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+        </div>
     </div>
 
-    <script>
-        // This function runs when a QR code is successfully scanned
-        function onScanSuccess(decodedText, decodedResult) {
-            document.getElementById('result').innerText = decodedText;
+    <!-- REGISTRATION & GALLERY SECTION -->
+    <main id="registration-main">
+        
+        <!-- Registration Card -->
+        <div class="glass-card" id="guest-container" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-scale="1.05">
+            <div id="login-section">
+                <h1 class="card-title">Join the Festivity</h1>
+                <p class="desc">Authenticate with Google to generate your unique digital entry pass for the Dandiya Event.</p>
+                <button class="google-btn" onclick="authenticateGuest()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" class="google-icon">
+                    Sign in with Google
+                </button>
+            </div>
+
+            <div id="ticket-section">
+                <h1 class="card-title">Digital Pass</h1>
+                <p class="desc">Please present this QR code at the entrance.</p>
+                <div class="qr-container" id="qrcode"></div>
+                <div class="ticket-info">Guest: <span id="guest-display-name"></span></div>
+            </div>
+        </div>
+
+        <!-- Event Image Gallery -->
+        <div class="gallery-container" id="gallery-container">
+            <img src="images (1).jpg" alt="Dandiya Event 1" class="gallery-img">
+            <img src="images.jpg" alt="Dandiya Event 2" class="gallery-img">
+            <img src="ev1.jpeg" alt="Dandiya Event 3" class="gallery-img">
+        </div>
+
+        <!-- ADMIN SCANNER VIEW (Hidden by default) -->
+        <div class="glass-card" id="admin-container" data-tilt data-tilt-glare data-tilt-max-glare="0.1">
+            <h1 class="card-title">Gate Control</h1>
+            <p class="desc" style="margin-bottom: 20px;">Event Terminal // Authorized Personnel Only</p>
+            <div id="reader"></div>
+            <div id="status-display" class="status-box standby">
+                <span id="status-title" class="status-title">STANDBY</span>
+                <span id="scanner-guest-name" class="guest-name">Awaiting Scan...</span>
+            </div>
+            <p style="margin-top: 15px; color: #d4af37; font-family: monospace; font-size: 1.1rem;">Session Check-ins: <span id="session-count">0</span></p>
+            <button class="exit-btn" onclick="exitAdmin()">Close Terminal</button>
+        </div>
+    </main>
+
+    <!-- ABOUT DANDIYA SECTION (Moved Below Gallery) -->
+    <section id="about" class="about-section">
+        <div class="about-header">
+            <h2>The Essence of Dandiya</h2>
+            <p>A vibrant, high-energy folk dance festival originating from Gujarat, celebrated globally during the nine nights of Navratri.</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>🔱 Cultural Significance</h3>
+                <p>Dandiya Raas represents a mock fight between Goddess Durga and the demon king Mahishasura. The decorated wooden sticks symbolize the swords of the Goddess.</p>
+            </div>
+            <div class="about-card">
+                <h3>💃 Dance Style</h3>
+                <p>A group dance performed in pairs moving rhythmically inside concentric circles. Dancers strike their sticks to the powerful beats of the dhol and traditional music.</p>
+            </div>
+            <div class="about-card">
+                <h3>👗 Traditional Attire</h3>
+                <p>Women wear dazzling Chaniya Cholis adorned with mirror work and embroidery. Men wear traditional Gujarati kedias paired with colorful turbans.</p>
+            </div>
+            <div class="about-card">
+                <h3>🔄 Garba vs. Dandiya</h3>
+                <ul>
+                    <li><strong>Garba:</strong> Performed before Aarti using handclaps.</li>
+                    <li><strong>Dandiya:</strong> Performed after Aarti using decorated wooden sticks.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW DEVELOPER FOOTER -->
+    <footer>
+        <p>Developed & Designed by <span>Sanjeev Kumar</span> | BCA Student Project 2026</p>
+        <p class="made-with-love">Made with ❤️ by SJV</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sanjeev-kumar-tech" target="_blank">LinkedIn</a>
+            <a href="https://github.com/SanjeevKumar-24" target="_blank">GitHub</a>
+        </div>
+    </footer>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="admin-modal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 20px; color: #d4af37; font-family: 'Playfair Display', serif; font-size: 1.8rem;">Security Protocol</h2>
+            <input type="text" id="admin-id" placeholder="Admin ID">
+            <input type="password" id="admin-pass" placeholder="Password">
+            <button class="modal-btn" onclick="loginAdmin()">Verify Protocol</button>
+            <button class="modal-cancel" onclick="closeAdminModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- FIREBASE & LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Your exact Firebase keys
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSt70SAbIuHdNCymsB1gHc9Wcnfs5wy2w",
+            authDomain: "suddent-fdb9a.firebaseapp.com",
+            projectId: "suddent-fdb9a",
+            storageBucket: "suddent-fdb9a.firebasestorage.app",
+            messagingSenderId: "151299666953",
+            appId: "1:151299666953:web:5acc9e7a72b99708b734d8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        let html5QrcodeScanner = null;
+        let isProcessing = false;
+        let sessionCount = 0;
+
+        // --- FESTIVE FIRECRACKER GENERATOR ---
+        function createFirecrackers() {
+            const container = document.getElementById('spark-container');
+            setInterval(() => {
+                const burstX = Math.random() * 90 + 5; 
+                const burstY = Math.random() * 80 + 10; 
+                const numSparks = Math.floor(Math.random() * 12) + 15; 
+                
+                for(let i = 0; i < numSparks; i++) {
+                    let spark = document.createElement('div');
+                    spark.className = 'spark';
+                    spark.style.left = burstX + 'vw';
+                    spark.style.top = burstY + 'vh';
+                    
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = Math.random() * 100 + 40; 
+                    const tx = Math.cos(angle) * velocity;
+                    const ty = Math.sin(angle) * velocity;
+                    
+                    spark.style.setProperty('--tx', tx + 'px');
+                    spark.style.setProperty('--ty', ty + 'px');
+                    
+                    container.appendChild(spark);
+                    setTimeout(() => spark.remove(), 1500);
+                }
+            }, 1000); 
+        }
+        createFirecrackers();
+
+        // --- GUEST LOGIC ---
+        window.authenticateGuest = async function() {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                const guestRef = doc(db, "Guests", user.uid);
+                const guestSnap = await getDoc(guestRef);
+
+                if (!guestSnap.exists()) {
+                    await setDoc(guestRef, {
+                        uid: user.uid,
+                        name: user.displayName,
+                        email: user.email,
+                        status: "Registered",
+                        timestamp: new Date()
+                    });
+                }
+
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('ticket-section').style.display = 'block';
+                document.getElementById('guest-display-name').innerText = user.displayName;
+
+                new QRCode(document.getElementById("qrcode"), {
+                    text: user.uid, width: 200, height: 200,
+                    colorDark : "#0b1120", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H
+                });
+            } catch (error) {
+                console.error("Auth Error:", error);
+                alert("Failed to sign in. Please try again.");
+            }
+        };
+
+        // --- UI SWITCHING LOGIC ---
+        window.showAdminModal = function() { document.getElementById('admin-modal').style.display = 'flex'; }
+        window.closeAdminModal = function() { 
+            document.getElementById('admin-modal').style.display = 'none'; 
+            document.getElementById('admin-id').value = ""; document.getElementById('admin-pass').value = "";
+        }
+
+        window.loginAdmin = function() {
+            const id = document.getElementById('admin-id').value;
+            const pass = document.getElementById('admin-pass').value;
+
+            if (id === "admin" && pass === "velvet2026") {
+                closeAdminModal();
+                
+                // Hide Guest Elements
+                document.getElementById('hero').style.display = 'none'; 
+                document.getElementById('about').style.display = 'none'; 
+                document.getElementById('guest-container').style.display = 'none';
+                document.getElementById('gallery-container').style.display = 'none';
+                document.querySelector('.admin-trigger').style.display = 'none';
+                
+                // Show Admin Elements
+                document.getElementById('admin-container').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                if (!html5QrcodeScanner) {
+                    html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: {width: 250, height: 250} }, false);
+                    html5QrcodeScanner.render(onScanSuccess, () => {});
+                }
+            } else {
+                alert("Invalid Credentials");
+            }
+        }
+
+        window.exitAdmin = function() {
+            if (html5QrcodeScanner) { html5QrcodeScanner.clear().then(() => { html5QrcodeScanner = null; }); }
             
-            // Note: In the future, this is where you would write the code 
-            // to send the 'decodedText' to your database using an API.
+            // Hide Admin Elements
+            document.getElementById('admin-container').style.display = 'none';
+            
+            // Show Guest Elements
+            document.getElementById('hero').style.display = 'flex'; 
+            document.getElementById('about').style.display = 'block';
+            document.getElementById('guest-container').style.display = 'block';
+            document.getElementById('gallery-container').style.display = 'flex';
+            document.querySelector('.admin-trigger').style.display = 'block';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function onScanFailure(error) {
-            // handle scan failure, usually better to ignore and keep scanning
-        }
+        // --- SCANNER LOGIC ---
+        async function onScanSuccess(decodedText) {
+            if (isProcessing) return; 
+            isProcessing = true;
+            
+            const statusBox = document.getElementById('status-display');
+            const statusTitle = document.getElementById('status-title');
+            const scannerName = document.getElementById('scanner-guest-name');
+            const countDisplay = document.getElementById('session-count');
 
-        // Initialize the scanner
-        let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader",
-            { fps: 10, qrbox: {width: 250, height: 250} },
-            /* verbose= */ false
-        );
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+            statusBox.className = 'status-box processing';
+            statusTitle.innerText = "VERIFYING...";
+            scannerName.innerText = "Querying Database";
+
+            try {
+                const guestRef = doc(db, "Guests", decodedText);
+                const guestSnap = await getDoc(guestRef);
+
+                if (guestSnap.exists()) {
+                    const data = guestSnap.data();
+                    if (data.status === "Registered") {
+                        await updateDoc(guestRef, { status: "Checked In" });
+                        sessionCount++; countDisplay.innerText = sessionCount;
+                        statusBox.className = 'status-box success'; statusTitle.innerText = "ACCESS GRANTED"; scannerName.innerText = data.name;
+                    } else if (data.status === "Checked In") {
+                        statusBox.className = 'status-box error'; statusTitle.innerText = "TICKET ALREADY USED"; scannerName.innerText = data.name;
+                    }
+                } else {
+                    statusBox.className = 'status-box error'; statusTitle.innerText = "INVALID PASS"; scannerName.innerText = "No Record Found";
+                }
+            } catch (error) {
+                statusBox.className = 'status-box error'; statusTitle.innerText = "SYSTEM ERROR"; scannerName.innerText = "Check Connection";
+            }
+
+            setTimeout(() => {
+                isProcessing = false;
+                statusBox.className = 'status-box standby'; statusTitle.innerText = "STANDBY"; scannerName.innerText = "Awaiting Scan...";
+            }, 3500);
+        }
     </script>
-
 </body>
 </html>
