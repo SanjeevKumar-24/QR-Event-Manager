@@ -75,7 +75,7 @@
         .script-text { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: #d4af37; margin-bottom: 5px; }
         .sub-heading { font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; color: #f3e5ab; }
         .main-title { 
-            font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 7vw, 6rem); 
+            font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 6rem); 
             font-weight: 700; text-transform: uppercase; line-height: 1.05; margin: 15px 0 30px; 
             color: #fce7a1; text-shadow: 0 4px 25px rgba(212, 175, 55, 0.3);
         }
@@ -114,7 +114,7 @@
         .form-input {
             width: 100%; padding: 12px 15px; margin-bottom: 12px; border-radius: 8px; 
             border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0,0,0,0.3); 
-            color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.95rem;
+            color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1rem; /* 16px prevents iOS zoom */
             transition: 0.3s; outline: none;
         }
         .form-input:focus { border-color: #fce7a1; box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); background: rgba(0,0,0,0.5); }
@@ -131,10 +131,7 @@
         .ticket-info { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); padding: 15px; border-radius: 10px; color: #d4af37; font-weight: 600; margin-top: 10px;}
 
         /* Live Status Badge */
-        #ticket-status-badge {
-            display: none; padding: 8px 16px; border-radius: 30px; font-weight: 700;
-            font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
-        }
+        #ticket-status-badge { display: none; padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
 
         /* Image Gallery */
         .gallery-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; margin-top: 60px; width: 100%; max-width: 1000px; z-index: 10; }
@@ -145,13 +142,11 @@
         #admin-container { display: none; animation: fadeIn 0.5s ease; max-width: 500px; margin-top: 50px;}
         #reader { width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.4) !important; background: rgba(0,0,0,0.4); margin-bottom: 25px; padding: 15px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
         #reader * { font-family: 'Montserrat', sans-serif !important; }
-        #reader select { background: #0b1120 !important; color: #d4af37 !important; border: 1px solid #d4af37 !important; padding: 10px !important; border-radius: 8px !important; outline: none; margin-bottom: 15px !important; width: 90%; font-size: 0.9rem; }
+        #reader select { background: #0b1120 !important; color: #d4af37 !important; border: 1px solid #d4af37 !important; padding: 10px !important; border-radius: 8px !important; outline: none; margin-bottom: 15px !important; width: 100%; font-size: 0.9rem; max-width: 100%;}
         #reader button { background: linear-gradient(135deg, #d4af37, #fce7a1) !important; color: #0b1120 !important; border: none !important; padding: 12px 24px !important; border-radius: 8px !important; font-weight: 700 !important; cursor: pointer !important; margin-bottom: 15px !important; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s !important; }
-        #reader button:hover { box-shadow: 0 0 15px rgba(212,175,55,0.4) !important; }
         #reader span { color: #cbd5e1 !important; font-size: 0.9rem !important; }
         #reader a { color: #d4af37 !important; text-decoration: none !important; font-size: 0.85rem !important; transition: 0.3s; }
-        #reader a:hover { color: #fce7a1 !important; text-shadow: 0 0 8px rgba(212,175,55,0.5) !important; }
-        #reader video { border-radius: 12px !important; border: 1px solid rgba(212, 175, 55, 0.3) !important; margin-top: 10px !important; }
+        #reader video { width: 100% !important; border-radius: 12px !important; border: 1px solid rgba(212, 175, 55, 0.3) !important; margin-top: 10px !important; }
 
         .status-box { padding: 20px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; min-height: 100px; transition: all 0.3s ease; }
         .standby { background: rgba(255, 255, 255, 0.05); border: 1px dashed rgba(255,255,255,0.2); color: #94a3b8; }
@@ -159,7 +154,7 @@
         .error { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #ef4444; }
         .processing { background: rgba(234, 179, 8, 0.15); border: 1px solid #eab308; color: #eab308; }
         .status-title { font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; }
-        .guest-name { font-size: 1.6rem; color: #fff; margin-top: 5px; }
+        .guest-name { font-size: 1.6rem; color: #fff; margin-top: 5px; text-align: center; word-break: break-word;}
         
         .admin-controls { display: flex; gap: 10px; margin-top: 20px;}
         .exit-btn, .export-btn { flex: 1; background: transparent; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;}
@@ -202,12 +197,58 @@
         /* --- ADMIN LOGIN MODAL --- */
         #admin-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; justify-content: center; align-items: center; }
         .modal-content { background: #0b1120; border: 1px solid #d4af37; padding: 35px 30px; border-radius: 16px; text-align: center; width: 90%; max-width: 340px; box-shadow: 0 10px 30px rgba(212,175,55,0.2);}
-        .modal-content input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #334155; background: rgba(255,255,255,0.05); color: #fff; font-family: 'Montserrat', sans-serif;}
+        .modal-content input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #334155; background: rgba(255,255,255,0.05); color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1rem;}
         .modal-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #d4af37, #fce7a1); color: #0b1120; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-bottom: 15px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
         .modal-btn:hover { box-shadow: 0 0 15px rgba(212,175,55,0.4); }
         .modal-cancel { background: transparent; color: #94a3b8; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;}
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 768px) {
+            /* Navbar */
+            nav { padding: 0 4%; height: 65px; }
+            .nav-logo { font-size: 1.3rem; letter-spacing: 1px; }
+            .admin-trigger { padding: 8px 16px; font-size: 0.75rem; border-radius: 20px;}
+
+            /* Hero */
+            .gala-hero { padding: 80px 15px 30px; }
+            .script-text { font-size: 2rem; }
+            .sub-heading { font-size: 0.9rem; letter-spacing: 2px;}
+            .main-title { font-size: clamp(3rem, 12vw, 4rem); margin: 10px 0 20px; }
+            .date-text { font-size: 1rem; letter-spacing: 3px;}
+            .venue-text { font-size: 1.3rem; }
+            .highlights-text { font-size: 0.9rem; padding: 0 10px;}
+
+            /* Main Cards */
+            main { padding: 40px 15px; }
+            .glass-card { padding: 30px 20px; border-radius: 20px; }
+            .card-title { font-size: 2rem; }
+            .google-btn { padding: 12px 15px; font-size: 0.95rem; }
+            
+            /* Form Adjustments */
+            .form-input { padding: 10px 12px; margin-bottom: 10px; }
+            .submit-btn { padding: 12px 15px; font-size: 0.95rem; }
+
+            /* Gallery */
+            .gallery-container { gap: 15px; margin-top: 40px; }
+            .gallery-img { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/2; }
+
+            /* About Section */
+            .about-section { padding: 50px 5%; }
+            .about-header h2 { font-size: 2.2rem; }
+            .about-grid { gap: 20px; grid-template-columns: 1fr; }
+            .about-card { padding: 25px 20px; }
+
+            /* Footer */
+            footer { padding: 30px 15px; }
+            .made-with-love { font-size: 1.5rem; }
+            .social-links { flex-direction: column; width: 100%; max-width: 250px; }
+            
+            /* Admin & Modal */
+            .modal-content { padding: 25px 20px; }
+            .admin-controls { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
@@ -388,10 +429,14 @@
         // --- FESTIVE FIRECRACKER GENERATOR ---
         function createFirecrackers() {
             const container = document.getElementById('spark-container');
+            // Do not run excessive animations if on a small screen to save battery
+            const isMobile = window.innerWidth <= 768;
+            const spawnRate = isMobile ? 2000 : 1000;
+            
             setInterval(() => {
                 const burstX = Math.random() * 90 + 5; 
                 const burstY = Math.random() * 80 + 10; 
-                const numSparks = Math.floor(Math.random() * 12) + 15; 
+                const numSparks = Math.floor(Math.random() * 12) + (isMobile ? 8 : 15); 
                 
                 for(let i = 0; i < numSparks; i++) {
                     let spark = document.createElement('div');
@@ -410,7 +455,7 @@
                     container.appendChild(spark);
                     setTimeout(() => spark.remove(), 1500);
                 }
-            }, 1000); 
+            }, spawnRate); 
         }
         createFirecrackers();
 
@@ -426,10 +471,8 @@
                 document.getElementById('login-section').style.display = 'none';
 
                 if (!guestSnap.exists()) {
-                    // New User: Show the form to collect extra details
                     document.getElementById('form-section').style.display = 'block';
                 } else {
-                    // Returning User: Fetch status and display their ticket
                     const userData = guestSnap.data();
                     displayTicket(tempUser.uid, tempUser.displayName, userData.status);
                 }
@@ -478,7 +521,6 @@
             }
         };
 
-        // Renders the ticket and checks if the coupon is already used
         function displayTicket(uid, name, status) {
             document.getElementById('ticket-section').style.display = 'block';
             document.getElementById('guest-display-name').innerText = name;
@@ -489,14 +531,12 @@
             statusBadge.style.display = 'inline-block';
 
             if (status === "Checked In") {
-                // TICKET ALREADY USED UI
                 statusBadge.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
                 statusBadge.style.color = '#ef4444';
                 statusBadge.style.border = '1px solid #ef4444';
                 statusBadge.innerText = '🎟️ Pass Already Used';
-                qrElement.style.opacity = '0.3'; // Dims the QR code visually
+                qrElement.style.opacity = '0.3'; 
             } else {
-                // TICKET VALID UI
                 statusBadge.style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
                 statusBadge.style.color = '#10b981';
                 statusBadge.style.border = '1px solid #10b981';
@@ -504,7 +544,7 @@
                 qrElement.style.opacity = '1'; 
             }
 
-            qrElement.innerHTML = ""; // Clear any old QR code
+            qrElement.innerHTML = ""; 
             new QRCode(qrElement, {
                 text: uid, width: 200, height: 200, colorDark : "#0b1120", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H
             });
