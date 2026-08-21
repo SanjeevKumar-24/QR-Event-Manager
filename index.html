@@ -83,7 +83,6 @@
         .venue-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; margin-bottom: 30px; color: #d4af37; }
         .highlights-text { font-size: 1rem; max-width: 650px; line-height: 1.8; color: #cbd5e1; margin-bottom: 40px; font-weight: 300;}
 
-        /* Updated arrow anchor to jump to registration */
         .scroll-indicator a { animation: bounce 2s infinite; color: #d4af37; font-size: 0.85rem; text-align: center; letter-spacing: 2px; text-transform: uppercase; margin-top: auto; text-decoration: none; display: flex; flex-direction: column; align-items: center;}
         .scroll-indicator svg { width: 24px; height: 24px; display: block; margin-top: 5px; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
@@ -111,9 +110,31 @@
         .google-btn:hover { background-color: #f1f5f9; transform: translateY(-3px) translateZ(30px); box-shadow: 0 12px 25px rgba(212, 175, 55, 0.2); }
         .google-icon { width: 22px; height: 22px; }
 
-        #ticket-section { display: none; }
-        .qr-container { background: #fff; padding: 20px; border-radius: 16px; display: inline-block; margin: 20px 0; }
-        .ticket-info { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); padding: 15px; border-radius: 10px; color: #d4af37; font-weight: 600; }
+        /* Form Inputs */
+        .form-input {
+            width: 100%; padding: 12px 15px; margin-bottom: 12px; border-radius: 8px; 
+            border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0,0,0,0.3); 
+            color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.95rem;
+            transition: 0.3s; outline: none;
+        }
+        .form-input:focus { border-color: #fce7a1; box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); background: rgba(0,0,0,0.5); }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #d4af37, #fce7a1); color: #0b1120; border: none; 
+            padding: 14px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; 
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; margin-top: 10px;
+        }
+        .submit-btn:hover { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+
+        #form-section, #ticket-section { display: none; }
+        .qr-container { background: #fff; padding: 20px; border-radius: 16px; display: inline-block; margin: 15px 0; transition: opacity 0.3s ease;}
+        .ticket-info { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); padding: 15px; border-radius: 10px; color: #d4af37; font-weight: 600; margin-top: 10px;}
+
+        /* Live Status Badge */
+        #ticket-status-badge {
+            display: none; padding: 8px 16px; border-radius: 30px; font-weight: 700;
+            font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+        }
 
         /* Image Gallery */
         .gallery-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; margin-top: 60px; width: 100%; max-width: 1000px; z-index: 10; }
@@ -139,10 +160,15 @@
         .processing { background: rgba(234, 179, 8, 0.15); border: 1px solid #eab308; color: #eab308; }
         .status-title { font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; }
         .guest-name { font-size: 1.6rem; color: #fff; margin-top: 5px; }
-        .exit-btn { background: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 10px 24px; border-radius: 8px; margin-top: 20px; cursor: pointer; transition: 0.3s; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+        
+        .admin-controls { display: flex; gap: 10px; margin-top: 20px;}
+        .exit-btn, .export-btn { flex: 1; background: transparent; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;}
+        .exit-btn { color: #ef4444; border: 1px solid #ef4444; }
         .exit-btn:hover { background: #ef4444; color: #fff; }
+        .export-btn { color: #10b981; border: 1px solid #10b981; }
+        .export-btn:hover { background: #10b981; color: #fff; }
 
-        /* --- ABOUT FESTIVAL SECTION (Moved to Bottom) --- */
+        /* --- ABOUT FESTIVAL SECTION --- */
         .about-section {
             background: rgba(11, 17, 32, 0.85); backdrop-filter: blur(15px);
             border-top: 1px solid rgba(212, 175, 55, 0.2);
@@ -153,17 +179,14 @@
         .about-header p { color: #cbd5e1; max-width: 700px; margin: 0 auto; line-height: 1.6; font-size: 1.05rem; }
 
         .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .about-card {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 30px; border-radius: 16px; transition: transform 0.3s ease;
-        }
+        .about-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.2); padding: 30px; border-radius: 16px; transition: transform 0.3s ease; }
         .about-card:hover { transform: translateY(-5px); border-color: rgba(212, 175, 55, 0.6); background: rgba(212, 175, 55, 0.05); }
         .about-card h3 { color: #d4af37; font-size: 1.2rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
         .about-card p, .about-card ul { color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; }
         .about-card ul { padding-left: 20px; margin-top: 10px; }
         .about-card li { margin-bottom: 8px; }
 
-        /* --- UPGRADED DEVELOPER FOOTER --- */
+        /* --- DEVELOPER FOOTER --- */
         footer {
             margin-top: auto; width: 100%; background: rgba(11, 17, 32, 0.98);
             border-top: 1px solid rgba(212, 175, 55, 0.3);
@@ -172,17 +195,9 @@
         }
         footer span { color: #d4af37; font-weight: 600; }
         .made-with-love { color: #fce7a1; font-family: 'Great Vibes', cursive; font-size: 1.8rem; letter-spacing: 2px;}
-        
         .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
-        .social-links a { 
-            color: #d4af37; text-decoration: none; font-weight: 600; font-size: 0.85rem; 
-            text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(212, 175, 55, 0.4); 
-            padding: 10px 24px; border-radius: 30px; transition: 0.3s;
-        }
-        .social-links a:hover { 
-            background: rgba(212, 175, 55, 0.15); color: #fff; 
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); transform: translateY(-3px);
-        }
+        .social-links a { color: #d4af37; text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(212, 175, 55, 0.4); padding: 10px 24px; border-radius: 30px; transition: 0.3s; }
+        .social-links a:hover { background: rgba(212, 175, 55, 0.15); color: #fff; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); transform: translateY(-3px); }
 
         /* --- ADMIN LOGIN MODAL --- */
         #admin-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; justify-content: center; align-items: center; }
@@ -230,18 +245,40 @@
         
         <!-- Registration Card -->
         <div class="glass-card" id="guest-container" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-scale="1.05">
+            
+            <!-- Step 1: Login -->
             <div id="login-section">
                 <h1 class="card-title">Join the Festivity</h1>
-                <p class="desc">Authenticate with Google to generate your unique digital entry pass for the Dandiya Event.</p>
+                <p class="desc">Authenticate with Google to begin your registration for the Dandiya Event.</p>
                 <button class="google-btn" onclick="authenticateGuest()">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" class="google-icon">
                     Sign in with Google
                 </button>
             </div>
 
+            <!-- Step 2: Extra Details Form -->
+            <div id="form-section">
+                <h1 class="card-title" style="font-size: 2rem;">Guest Details</h1>
+                <p class="desc" style="margin-bottom: 20px;">Please complete your registration.</p>
+                <div style="text-align: left; margin-bottom: 10px;">
+                    <!-- STRICT VALIDATION: Only numbers allowed in Phone and Roll fields -->
+                    <input type="tel" id="guest-phone" class="form-input" placeholder="Phone Number (10 Digits)" maxlength="10" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" id="guest-roll" class="form-input" placeholder="Roll No / ID Number" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    
+                    <input type="text" id="guest-org" class="form-input" placeholder="Organisation / College" required>
+                    <input type="text" id="guest-dept" class="form-input" placeholder="Department (Optional)">
+                </div>
+                <button class="submit-btn" id="generate-btn" onclick="submitGuestDetails()">Generate Pass</button>
+            </div>
+
+            <!-- Step 3: Ticket View -->
             <div id="ticket-section">
                 <h1 class="card-title">Digital Pass</h1>
                 <p class="desc">Please present this QR code at the entrance.</p>
+                
+                <!-- STATUS BADGE: Shows if ticket is valid or used -->
+                <div id="ticket-status-badge"></div>
+                
                 <div class="qr-container" id="qrcode"></div>
                 <div class="ticket-info">Guest: <span id="guest-display-name"></span></div>
             </div>
@@ -254,7 +291,7 @@
             <img src="ev1.jpeg" alt="Dandiya Event 3" class="gallery-img">
         </div>
 
-        <!-- ADMIN SCANNER VIEW (Hidden by default) -->
+        <!-- ADMIN SCANNER VIEW -->
         <div class="glass-card" id="admin-container" data-tilt data-tilt-glare data-tilt-max-glare="0.1">
             <h1 class="card-title">Gate Control</h1>
             <p class="desc" style="margin-bottom: 20px;">Event Terminal // Authorized Personnel Only</p>
@@ -264,11 +301,15 @@
                 <span id="scanner-guest-name" class="guest-name">Awaiting Scan...</span>
             </div>
             <p style="margin-top: 15px; color: #d4af37; font-family: monospace; font-size: 1.1rem;">Session Check-ins: <span id="session-count">0</span></p>
-            <button class="exit-btn" onclick="exitAdmin()">Close Terminal</button>
+            
+            <div class="admin-controls">
+                <button class="exit-btn" onclick="exitAdmin()">Close Terminal</button>
+                <button class="export-btn" onclick="exportToExcel()">Export Excel</button>
+            </div>
         </div>
     </main>
 
-    <!-- ABOUT DANDIYA SECTION (Moved Below Gallery) -->
+    <!-- ABOUT DANDIYA SECTION -->
     <section id="about" class="about-section">
         <div class="about-header">
             <h2>The Essence of Dandiya</h2>
@@ -297,7 +338,7 @@
         </div>
     </section>
 
-    <!-- NEW DEVELOPER FOOTER -->
+    <!-- DEVELOPER FOOTER -->
     <footer>
         <p>Developed & Designed by <span>Sanjeev Kumar</span> | BCA Student Project 2026</p>
         <p class="made-with-love">Made with ❤️ by SJV</p>
@@ -322,7 +363,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // Your exact Firebase keys
         const firebaseConfig = {
@@ -342,6 +383,7 @@
         let html5QrcodeScanner = null;
         let isProcessing = false;
         let sessionCount = 0;
+        let tempUser = null; 
 
         // --- FESTIVE FIRECRACKER GENERATOR ---
         function createFirecrackers() {
@@ -372,36 +414,121 @@
         }
         createFirecrackers();
 
-        // --- GUEST LOGIC ---
+        // --- GUEST REGISTRATION LOGIC ---
         window.authenticateGuest = async function() {
             try {
                 const result = await signInWithPopup(auth, provider);
-                const user = result.user;
+                tempUser = result.user; 
                 
-                const guestRef = doc(db, "Guests", user.uid);
+                const guestRef = doc(db, "Guests", tempUser.uid);
                 const guestSnap = await getDoc(guestRef);
 
-                if (!guestSnap.exists()) {
-                    await setDoc(guestRef, {
-                        uid: user.uid,
-                        name: user.displayName,
-                        email: user.email,
-                        status: "Registered",
-                        timestamp: new Date()
-                    });
-                }
-
                 document.getElementById('login-section').style.display = 'none';
-                document.getElementById('ticket-section').style.display = 'block';
-                document.getElementById('guest-display-name').innerText = user.displayName;
 
-                new QRCode(document.getElementById("qrcode"), {
-                    text: user.uid, width: 200, height: 200,
-                    colorDark : "#0b1120", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H
-                });
+                if (!guestSnap.exists()) {
+                    // New User: Show the form to collect extra details
+                    document.getElementById('form-section').style.display = 'block';
+                } else {
+                    // Returning User: Fetch status and display their ticket
+                    const userData = guestSnap.data();
+                    displayTicket(tempUser.uid, tempUser.displayName, userData.status);
+                }
             } catch (error) {
                 console.error("Auth Error:", error);
                 alert("Failed to sign in. Please try again.");
+                document.getElementById('login-section').style.display = 'block';
+            }
+        };
+
+        window.submitGuestDetails = async function() {
+            const phone = document.getElementById('guest-phone').value;
+            const roll = document.getElementById('guest-roll').value;
+            const org = document.getElementById('guest-org').value;
+            const dept = document.getElementById('guest-dept').value;
+
+            if(!phone || !roll || !org) {
+                return alert("Please fill in your Phone, Roll No, and Organisation.");
+            }
+
+            const btn = document.getElementById('generate-btn');
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            try {
+                const guestRef = doc(db, "Guests", tempUser.uid);
+                await setDoc(guestRef, {
+                    uid: tempUser.uid,
+                    name: tempUser.displayName,
+                    email: tempUser.email,
+                    phone: phone,
+                    rollNo: roll,
+                    organisation: org,
+                    department: dept,
+                    status: "Registered",
+                    timestamp: new Date().toLocaleString()
+                });
+
+                document.getElementById('form-section').style.display = 'none';
+                displayTicket(tempUser.uid, tempUser.displayName, "Registered");
+            } catch (error) {
+                console.error("Save Error:", error);
+                alert("Error saving your details. Please try again.");
+                btn.innerText = "Generate Pass";
+                btn.disabled = false;
+            }
+        };
+
+        // Renders the ticket and checks if the coupon is already used
+        function displayTicket(uid, name, status) {
+            document.getElementById('ticket-section').style.display = 'block';
+            document.getElementById('guest-display-name').innerText = name;
+            
+            const statusBadge = document.getElementById('ticket-status-badge');
+            const qrElement = document.getElementById('qrcode');
+            
+            statusBadge.style.display = 'inline-block';
+
+            if (status === "Checked In") {
+                // TICKET ALREADY USED UI
+                statusBadge.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                statusBadge.style.color = '#ef4444';
+                statusBadge.style.border = '1px solid #ef4444';
+                statusBadge.innerText = '🎟️ Pass Already Used';
+                qrElement.style.opacity = '0.3'; // Dims the QR code visually
+            } else {
+                // TICKET VALID UI
+                statusBadge.style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
+                statusBadge.style.color = '#10b981';
+                statusBadge.style.border = '1px solid #10b981';
+                statusBadge.innerText = '✅ Valid Pass';
+                qrElement.style.opacity = '1'; 
+            }
+
+            qrElement.innerHTML = ""; // Clear any old QR code
+            new QRCode(qrElement, {
+                text: uid, width: 200, height: 200, colorDark : "#0b1120", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+
+        // --- EXPORT TO EXCEL LOGIC ---
+        window.exportToExcel = async function() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "Guests"));
+                let csvContent = "Name,Email,Phone,Roll No,Organisation,Department,Status,Registration Date\n";
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    csvContent += `"${data.name || ''}","${data.email || ''}","${data.phone || ''}","${data.rollNo || ''}","${data.organisation || ''}","${data.department || ''}","${data.status || ''}","${data.timestamp || ''}"\n`;
+                });
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "Navrang_Garba_GuestList.csv";
+                link.click();
+            } catch (error) {
+                console.error("Export Error:", error);
+                alert("Failed to download the guest list.");
             }
         };
 
@@ -418,15 +545,12 @@
 
             if (id === "admin" && pass === "velvet2026") {
                 closeAdminModal();
-                
-                // Hide Guest Elements
                 document.getElementById('hero').style.display = 'none'; 
                 document.getElementById('about').style.display = 'none'; 
                 document.getElementById('guest-container').style.display = 'none';
                 document.getElementById('gallery-container').style.display = 'none';
                 document.querySelector('.admin-trigger').style.display = 'none';
                 
-                // Show Admin Elements
                 document.getElementById('admin-container').style.display = 'block';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
@@ -441,17 +565,12 @@
 
         window.exitAdmin = function() {
             if (html5QrcodeScanner) { html5QrcodeScanner.clear().then(() => { html5QrcodeScanner = null; }); }
-            
-            // Hide Admin Elements
             document.getElementById('admin-container').style.display = 'none';
-            
-            // Show Guest Elements
             document.getElementById('hero').style.display = 'flex'; 
             document.getElementById('about').style.display = 'block';
             document.getElementById('guest-container').style.display = 'block';
             document.getElementById('gallery-container').style.display = 'flex';
             document.querySelector('.admin-trigger').style.display = 'block';
-            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
